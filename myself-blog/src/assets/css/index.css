@@ -1,0 +1,79 @@
+/* 全局初始化样式 */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+article,
+aside,
+dialog,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
+
+html {
+  font-size: 100px;
+  font-family: sans-serif;
+  line-height: 1.15;
+}
+
+body {
+  font-size: .14rem;
+  color: #787978;
+  font-family: Microsoft Yahei;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: auto;
+  background: url("~@/assets/img/bg/index-bg.jpg") repeat;
+}
+
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.clearfix::before {
+  content: '';
+  display: table;
+  height: 0;
+}
+
+.mt-5 {
+  margin-top: 5px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
