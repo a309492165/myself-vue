@@ -39,7 +39,7 @@
 import Reply from '@/components/message/Reply.vue'
 import { queryCommentAll } from '@/api/comment.js'
 import { mapMutations } from 'vuex'
-import utilTools from '@/plugins/utilTools'
+import util from '@/utils/util'
 export default {
   name: 'LeaveList',
   components: {
@@ -68,31 +68,32 @@ export default {
     initList() {
       const offsetp = this.pagination.currentPage
       const limitp = this.pagination.size
-      queryCommentAll({offsetp, limitp}).then(res => {
-        if (!res.code) {
-          this.leaveList = res.data.map(item => {
-            if (item.replys && item.replys.length > 0) {
-              item.replys = item.replys.map(r => {
-                r.visible = false
-                r.viContent = ''
-                return r
-              })
-            }
-            if (item.visible === 0) {
-              item.visible = false
-              item.viContent = ''
-            }
-            return item
-          })
-          this.pagination.total = res.total
-          if (res.userinfo) {
-            this.setUserinfo(res.userinfo)
-            let str = JSON.stringify(res.userinfo)
-            sessionStorage.setItem('_mySelf', utilTools.compile(str))
-          } else {
-            this.setUserinfo(null)
+      queryCommentAll({offsetp, limitp}).then(data => {
+        // console.log(data)
+        this.leaveList = data.dataList.map(item => {
+          if (item.replys && item.replys.length > 0) {
+            item.replys = item.replys.map(r => {
+              r.visible = false
+              r.viContent = ''
+              return r
+            })
           }
+          if (item.visible === 0) {
+            item.visible = false
+            item.viContent = ''
+          }
+          return item
+        })
+        this.pagination.total = data.total
+        if (data.userinfo) {
+          this.setUserinfo(data.userinfo)
+          let str = JSON.stringify(data.userinfo)
+          sessionStorage.setItem('_mySelf', util.compile(str))
+        } else {
+          this.setUserinfo(null)
         }
+      }).catch(e => {
+        // console.log(e)
       })
     },
     handleMsg() {

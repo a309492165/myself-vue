@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import { jsencrypt } from '@/plugins/encrypt'
-import regAll from '@/plugins/regAll'
+import { setEncrypt } from '@/utils/encrypt'
+import regAll from '@/utils/regAll'
 export default {
   name: 'Register',
   data() {
@@ -88,23 +88,15 @@ export default {
         if (valid) {
           const username = this.form.username
           const mobile = this.form.mobile
-          const password = jsencrypt.encrypt(this.form.password)
-          this.$axios.post('/register', { username, mobile, password }).then(res => {
-            if (!res.code) {
-              this.$message({
-                type: 'success',
-                message: res.msg
-              })
-              this.form.mobile = ''
-              this.form.username = ''
-              this.form.password = ''
-              this.handleOpenLogin()
-            } else {
-              this.$message({
-                type: 'warning',
-                message: res.msg
-              })
-            }
+          const password = setEncrypt(this.form.password)
+          this.$axios.post('/register', { username, mobile, password }).then(data => {
+            this.$tip.success(data)
+            this.form.mobile = ''
+            this.form.username = ''
+            this.form.password = ''
+            this.handleOpenLogin()
+          }).catch(e => {
+            // console.log(e)
           })
         } else {
           return false

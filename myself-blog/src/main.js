@@ -10,12 +10,17 @@ import pdf from './plugins/pdf'
 // 引入element-ui
 import 'element-ui/lib/theme-chalk/index.css'
 import ElementUI from 'element-ui'
+// 二次封装插件
+import Loading from './utils/loading'
+import Tip from './utils/tip'
 // 使用插件
 Vue.use(pdf)
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
+Vue.prototype.$load = Loading
+Vue.prototype.$tip = Tip
 
 /* eslint-disable no-new */
 new Vue({

@@ -20,6 +20,7 @@
             autocomplete="off"
             placeholder="请输入密码"
             show-password
+            @keyup.enter.native="handleLogin('ruleForm')"
           ></el-input>
         </el-form-item>
       </el-form>
@@ -35,8 +36,8 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import { jsencrypt } from '@/plugins/encrypt'
-import regAll from '@/plugins/regAll'
+import { setEncrypt } from '@/utils/encrypt'
+import regAll from '@/utils/regAll'
 export default {
   name: 'Register',
   data() {
@@ -75,23 +76,15 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           const mobile = this.form.mobile
-          const password = jsencrypt.encrypt(this.form.password)
-          this.$axios.post('/login', { mobile, password }).then(res => {
-            if (!res.code) {
-              this.setUserinfo(res.data)
-              this.$message({
-                type: 'success',
-                message: res.msg
-              })
-              this.dialogFormVisible = false
-              this.form.mobile = ''
-              this.form.password = ''
-            } else {
-              this.$message({
-                type: 'warning',
-                message: res.msg
-              })
-            }
+          const password = setEncrypt(this.form.password)
+          this.$axios.post('/login', { mobile, password }).then(data => {
+            this.setUserinfo(data)
+            this.$tip.success('登录成功')
+            this.dialogFormVisible = false
+            this.form.mobile = ''
+            this.form.password = ''
+          }).catch(e => {
+            // console.log(e)
           })
         } else {
           return false

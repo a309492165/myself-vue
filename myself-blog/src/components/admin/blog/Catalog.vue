@@ -60,8 +60,7 @@
 import DeletePop from '@/components/pop/DeletePop.vue'
 import EditOneInput from '@/components/pop/EditOneInput.vue'
 import { queryCatalogAll, addCatalog, deleteCatalog, updateCatalog } from '@/api/blog'
-import utilTools from '@/plugins/utilTools'
-import { tipsMsg } from '@/plugins/el'
+import util from '@/utils/util'
 export default {
   name: 'Catalog',
   components: {
@@ -90,30 +89,28 @@ export default {
     }
   },
   mounted() {
-    let userStr = utilTools.encompile(sessionStorage.getItem('_mySelf'))
+    let userStr = util.encompile(sessionStorage.getItem('_mySelf'))
     this.userInfo = JSON.parse(userStr)
     this.queryAll()
   },
   methods: {
     queryAll() {
-      queryCatalogAll({ uid: this.userInfo.id }).then(res => {
-        if (!res.code) {
-          this.catalog.list.content = res.data
-        }
+      queryCatalogAll({ uid: this.userInfo.id }).then(data => {
+        this.catalog.list.content = data
       })
     },
     // 目录条功能集合
     handleAddCatalog() {
       addCatalog({ uid: this.userInfo.id, title: this.catalog.add.text }).then(
-        res => {
-          if (!res.code) {
-            this.catalog.add.text = ''
-            this.catalog.add.show = false
-            this.queryAll()
-          }
-          tipsMsg(res)
+        data => {
+          this.$tip.success(data)
+          this.catalog.add.text = ''
+          this.catalog.add.show = false
+          this.queryAll()
         }
-      )
+      ).catch(e => {
+        // console.log(e)
+      })
     },
     handleChangeCatalog(i) {
       this.catalog.list.active = i
@@ -128,12 +125,12 @@ export default {
     },
     confirmDel() {
       let id = this.catalog.list.content[this.currentIdx].id
-      deleteCatalog({ id }).then(res => {
-        if (!res.code) {
-          this.queryAll()
-          this.deleteDialogVisible = false
-        }
-        tipsMsg(res)
+      deleteCatalog({ id }).then(data => {
+        this.$tip.success(data)
+        this.queryAll()
+        this.deleteDialogVisible = false
+      }).catch(e => {
+        // console.log(e)
       })
     },
     // 编辑
@@ -147,13 +144,13 @@ export default {
     },
     confirmEdit(content) {
       let id = this.catalog.list.content[this.currentIdx].id
-      updateCatalog({ id, title: content }).then(res => {
-        if (!res.code) {
-          this.queryAll()
-          this.editDialogVisible = false
-          // this.catalog.list.content[this.currentIdx].title = content
-        }
-        tipsMsg(res)
+      updateCatalog({ id, title: content }).then(data => {
+        this.$tip.success(data)
+        this.queryAll()
+        this.editDialogVisible = false
+        // this.catalog.list.content[this.currentIdx].title = content
+      }).catch(e => {
+        // console.log(e)
       })
     }
   }

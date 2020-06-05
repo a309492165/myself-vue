@@ -25,6 +25,7 @@
 <script>
 import { addComment } from '@/api/comment.js'
 import { mapState } from 'vuex'
+import util from '@/utils/util'
 export default {
   name: 'LeaveMsg',
   data() {
@@ -42,38 +43,25 @@ export default {
     handleMsg() {
       this.isShow = !this.isShow
     },
-    handleAddMsg() {
+    handleAddMsg: util.throttle(function () {
       if (!this.userinfo) {
-        this.$message({
-          type: 'warning',
-          message: '请您登录'
-        })
+        this.$tip.warning('请您登录')
         return
       }
       let msg = this.textarea.trim()
       if (!msg) {
-        this.$message({
-          type: 'warning',
-          message: '留言信息不能为空'
-        })
+        this.$tip.warning('留言信息不能为空')
         return
       }
-      addComment({ msg, uid: this.userinfo.id }).then(res => {
-        let typeMsg = 'warning'
-        if (!res.code) {
-          typeMsg = 'success'
-          this.$parent.handleComments()
-          this.isShow = false
-          this.textarea = ''
-        } else {
-          typeMsg = 'warning'
-        }
-        this.$message({
-          type: typeMsg,
-          message: res.msg
-        })
+      addComment({ msg, uid: this.userinfo.id }).then(data => {
+        this.$tip.success(data)
+        this.$parent.handleComments()
+        this.isShow = false
+        this.textarea = ''
+      }).catch(e => {
+        this.$tip.error('留言失败')
       })
-    }
+    }, 800)
   }
 }
 </script>

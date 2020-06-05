@@ -1,5 +1,6 @@
 // 在http.js中引入axios
 import axios from 'axios' // 引入axios
+import Vue from 'vue'
 import { Message } from 'element-ui'
 import router from '../router'
 
@@ -30,6 +31,9 @@ axios.defaults.headers.post['Content-Type'] =
 // http请求拦截
 axios.interceptors.request.use(
   config => {
+    if (isShowLoading(config)) {
+      Vue.prototype.$load.open()
+    }
     // 登录拦截
     // debugger
     // if (!config.headers.hasOwnProperty('Authorization')) {
@@ -38,6 +42,7 @@ axios.interceptors.request.use(
     return config
   },
   error => {
+    Vue.prototype.$load.close()
     Message.error({
       message: '加载超时'
     })
@@ -48,15 +53,17 @@ axios.interceptors.request.use(
 // http响应拦截器
 axios.interceptors.response.use(
   response => {
+    return response
     // 如果返回的状态码为200，说明接口请求成功，可以正常拿到数据
     // 否则的话抛出错误
-    if (response.status === 200) {
-      return Promise.resolve(response)
-    } else {
-      return Promise.reject(response)
-    }
+    // if (response.status === 200) {
+    //   return Promise.resolve(response)
+    // } else {
+    //   return Promise.reject(response)
+    // }
   },
   error => {
+    errorHandler(error)
     if (error.response.status) {
       switch (error.response.status) {
         // 401: 未登录
@@ -101,19 +108,96 @@ axios.interceptors.response.use(
   }
 )
 
+function isShowLoading (config) {
+  let isShowLoading = true
+  if (config.data) {
+    if (config.data.isLoading === false) {
+      isShowLoading = false
+    }
+  }
+  if (config.params) {
+    if (config.params.isLoading === false) {
+      isShowLoading = false
+    }
+  }
+  return isShowLoading
+}
+
+function checkStatus (response) {
+  if (
+    response &&
+    (response.status === 200 ||
+      response.status === 304 ||
+      response.status === 400)
+  ) {
+    return response.data
+  }
+  return {
+    success: false,
+    status: -404,
+    msg: '网络异常'
+  }
+}
+
 function checkCode(res) {
-  if (!res.data.code || res.data.code === -1) {
-    // hideFullScreenLoading()
-    return res.data
-  } else if (!res.code) {
-    // 请求upm系统判断
+  Vue.prototype.$load.close()
+  if (res.code === 0) {
     return res.data
   } else {
     Message.error({
-      message: res.data.message,
-      duration: 1500
+      message: res.msg
     })
+    return Promise.reject(res)
   }
+}
+
+function errorHandler (error) {
+  Vue.prototype.$load.close()
+  if (error && error.status) {
+    switch (error.response.status) {
+      case 400:
+        error.msg = '错误请求'
+        break
+      case 401:
+        error.msg = '未授权，请重新登录'
+        break
+      case 403:
+        error.msg = '拒绝访问'
+        break
+      case 404:
+        error.msg = '请求错误，未找到该资源'
+        break
+      case 405:
+        error.msg = '请求方法未允许'
+        break
+      case 408:
+        error.msg = '请求超时'
+        break
+      case 500:
+        error.msg = '服务器端出错'
+        break
+      case 501:
+        error.msg = '网络未实现'
+        break
+      case 502:
+        error.msg = '网络错误'
+        break
+      case 503:
+        error.msg = '服务不可用'
+        break
+      case 504:
+        error.msg = '网络超时'
+        break
+      case 505:
+        error.msg = 'http版本不支持该请求'
+        break
+      default:
+        error.msg = `连接错误${error.response.status}`
+    }
+  } else {
+    error.msg = '连接到服务器失败'
+  }
+  // console.log(error.msg)
 }
 
 // 导出通用请求方法
@@ -127,7 +211,7 @@ export default {
       headers: header
     })
       .then(response => {
-        return response
+        return checkStatus(response)
       })
       .then(res => {
         return checkCode(res)
@@ -142,7 +226,7 @@ export default {
       headers: postHeader
     })
       .then(response => {
-        return response
+        return checkStatus(response)
       })
       .then(res => {
         // showFullScreenLoading ('#app')
@@ -157,7 +241,7 @@ export default {
       headers: header
     })
       .then(response => {
-        return response
+        return checkStatus(response)
       })
       .then(res => {
         return checkCode(res)
@@ -171,7 +255,7 @@ export default {
       headers: postHeader
     })
       .then(response => {
-        return response
+        return checkStatus(response)
       })
       .then(res => {
         return checkCode(res)
@@ -185,7 +269,7 @@ export default {
       headers: postHeader
     })
       .then(response => {
-        return response
+        return checkStatus(response)
       })
       .then(res => {
         return checkCode(res)

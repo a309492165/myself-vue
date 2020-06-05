@@ -58,14 +58,9 @@ export default {
       this.$refs['login'].dialogFormVisible = true
     },
     handleOut() {
-      this.$axios.post('/out').then(res => {
-        if (!res.code) {
-          this.$message({
-            type: 'success',
-            message: res.msg
-          })
-          this.setUserinfo(null)
-        }
+      this.$axios.post('/out').then(data => {
+        this.$tip.success(data)
+        this.setUserinfo(null)
       })
     },
     handleComments() {

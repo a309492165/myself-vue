@@ -33,6 +33,7 @@
 <script>
 import { addReply } from '@/api/comment.js'
 import { mapState } from 'vuex'
+import util from '@/utils/util'
 export default {
   name: 'Reply',
   props: {
@@ -53,14 +54,11 @@ export default {
     return {}
   },
   methods: {
-    handleReply() {
+    handleReply: util.throttle(function () {
       let commentId = this.commentId
       let content = this.pop.viContent.trim()
       if (!content) {
-        this.$message({
-          type: 'warning',
-          message: '回复不能为空'
-        })
+        this.$tip.warning('回复不能为空')
         this.pop.viContent = ''
         return false
       }
@@ -74,22 +72,15 @@ export default {
         // 给之前的主人打电话
         cid = this.pop.user_id
       }
-      addReply({content, commentId, uid, cid}).then(res => {
-        let typeMsg = 'warning'
-        if (!res.code) {
-          typeMsg = 'success'
-          this.$parent.initList()
-          this.pop.visible = false
-          this.pop.viContent = ''
-        } else {
-          typeMsg = 'warning'
-        }
-        this.$message({
-          type: typeMsg,
-          message: res.msg
-        })
+      addReply({content, commentId, uid, cid}).then(data => {
+        this.$tip.success(data)
+        this.$parent.initList()
+        this.pop.visible = false
+        this.pop.viContent = ''
+      }).catch(e => {
+        this.$tip.success('回复失败')
       })
-    }
+    }, 800)
   }
 }
 </script>
