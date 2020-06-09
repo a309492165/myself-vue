@@ -38,6 +38,7 @@
 import { mapMutations } from 'vuex'
 import { setEncrypt } from '@/utils/encrypt'
 import regAll from '@/utils/regAll'
+import util from '@/utils/util'
 export default {
   name: 'Register',
   data() {
@@ -83,6 +84,8 @@ export default {
             this.dialogFormVisible = false
             this.form.mobile = ''
             this.form.password = ''
+            let str = JSON.stringify(data.userinfo)
+            sessionStorage.setItem('_mySelf', util.compile(str))
           }).catch(e => {
             // console.log(e)
           })
