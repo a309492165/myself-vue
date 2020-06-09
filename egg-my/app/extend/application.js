@@ -16,7 +16,7 @@ module.exports = {
     }
     let obj = {
       code: -1,
-      data: [],
+      data: null,
       msg: '请求失败',
     }
     if (isTrue) {
@@ -90,12 +90,12 @@ module.exports = {
     if (line === 1) {
       obj = {
         code: 0,
-        msg: successMsg,
+        data: successMsg,
       };
     } else {
       obj = {
-        code: 0,
-        msg: errorMsg,
+        code: -1,
+        data: errorMsg,
       };
     }
     return obj;

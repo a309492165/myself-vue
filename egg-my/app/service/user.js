@@ -30,7 +30,7 @@ class UserService extends Service {
     ctx.session.userinfo = null
     const callObj = {
       code: 0,
-      msg: '用户已退出'
+      data: '用户已退出'
     }
     return callObj
   }
@@ -63,7 +63,7 @@ class UserService extends Service {
       if (isIn.affectedRows == 1) {
         return {
           code: 0,
-          msg: '注册成功'
+          data: '注册成功'
         }
       } else {
         return {
