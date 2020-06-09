@@ -5,8 +5,9 @@ const Service = require('egg').Service;
 
 class CommentService extends Service {
   async findAll() {
-    const offsetp = this.ctx.query.offsetp || 1
-    const limitp = this.ctx.query.limitp || 1
+    const { ctx, app } = this
+    const offsetp = ctx.query.offsetp || 1
+    const limitp = ctx.query.limitp || 1
     const sql = `
       SELECT 
         c.id AS commentId, 
@@ -22,7 +23,7 @@ class CommentService extends Service {
       LIMIT ?, ?
     `;
     
-    const comment = await this.app.mysql.query(sql, [ Number((offsetp-1)*limitp), Number(limitp)])
+    const comment = await app.mysql.query(sql, [ Number((offsetp-1)*limitp), Number(limitp)])
     const sqlreply = `
       SELECT
         r.id AS replyId,
@@ -44,18 +45,18 @@ class CommentService extends Service {
     `;
     for (let i = 0; i < comment.length; i++) {
       let item = comment[i]
-      let reply = await this.app.mysql.query(sqlreply, [item.commentId])
+      let reply = await app.mysql.query(sqlreply, [item.commentId])
       item.replys = reply
     }
-    let res = this.app.formatData(comment)
-    const total = await this.app.mysql.query(`SELECT count(id) FROM comments`)
+    let res = app.formatData({dataList: comment})
+    const total = await app.mysql.query(`SELECT count(id) FROM comments`)
     if (total) {
-      res.total = total[0]['count(id)']
+      res.data.total = total[0]['count(id)']
     }
     // 获取 session 值
-    const userinfo = this.ctx.session.userinfo;
+    const userinfo = ctx.session.userinfo;
     if (userinfo) {
-      res.userinfo = userinfo
+      res.data.userinfo = userinfo
     }
     return res
   }
