@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import adminBlog from './modules/adminBlog'
 Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
@@ -13,6 +14,9 @@ const store = new Vuex.Store({
     setUserinfo (state, val) {
       state.userinfo = val
     }
+  },
+  modules: {
+    adminBlog
   }
 })
 

@@ -1,17 +1,27 @@
 import request from '@/api/request'
-// 所有目录
+// 目录增删改查
 export function queryCatalogAll(params) {
   return request.post('/admin/blog/queryCatalog', params)
 }
-// 新增目录
 export function addCatalog(params) {
   return request.post('/admin/blog/addCatalog', params)
 }
-// 删除目录
 export function deleteCatalog(params) {
   return request.post('/admin/blog/deleteCatalog', params)
 }
-// 修改目录
 export function updateCatalog(params) {
   return request.post('/admin/blog/updateCatalog', params)
+}
+// 文章增删改查
+export function queryArticle(params) {
+  return request.post('/admin/blog/queryArticle', params)
+}
+export function addArticle(params) {
+  return request.post('/admin/blog/addArticle', params)
+}
+export function deleteArticle(params) {
+  return request.post('/admin/blog/deleteArticle', params)
+}
+export function updateArticle(params) {
+  return request.post('/admin/blog/updateArticle', params)
 }

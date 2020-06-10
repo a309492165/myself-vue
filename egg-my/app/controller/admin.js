@@ -10,7 +10,8 @@ class AdminController extends Controller {
       data: 123,
     };
   }
-  async queryBlogCatalogAll() {
+  // 目录增删改查
+  async findCatalogAll() {
     const { ctx } = this;
     const data = await ctx.service.blog.findCatalogAll();
     ctx.body = data;
@@ -28,6 +29,27 @@ class AdminController extends Controller {
   async updateBlogCatalog() {
     const { ctx } = this;
     const data = await ctx.service.blog.updateCatalog();
+    ctx.body = data;
+  }
+  // 文章增删改查
+  async findArticleAll() {
+    const { ctx } = this;
+    const data = await ctx.service.blog.findArticleAll();
+    ctx.body = data;
+  }
+  async addArticle() {
+    const { ctx } = this;
+    const data = await ctx.service.blog.addArticle();
+    ctx.body = data;
+  }
+  async deleteArticle() {
+    const { ctx } = this;
+    const data = await ctx.service.blog.deleteArticle();
+    ctx.body = data;
+  }
+  async updateArticle() {
+    const { ctx } = this;
+    const data = await ctx.service.blog.updateArticle();
     ctx.body = data;
   }
 }

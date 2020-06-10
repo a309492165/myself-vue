@@ -1,18 +1,20 @@
 <template>
   <div class="admin-blog-container">
     <catalog></catalog>
-    <div>22</div>
+    <add-article></add-article>
     <div>33</div>
   </div>
 </template>
 
 <script>
 import Catalog from '@/components/admin/blog/Catalog.vue'
+import AddArticle from '@/components/admin/blog/AddArticle.vue'
 import EditBlog from '@/components/admin/blog/EditBlog.vue'
 export default {
   name: 'AdminBlog',
   components: {
     Catalog,
+    AddArticle,
     EditBlog
   },
   data() {
@@ -52,10 +54,11 @@ export default {
 
 <style lang="scss" scoped>
 .admin-blog-container {
+  width: 100%;
+  height: 100%;
   display: flex;
   > div {
     width: 20%;
-    height: 630px;
     padding: 6px;
     border: 1px solid #ccc;
   }

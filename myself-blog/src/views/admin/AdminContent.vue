@@ -1,5 +1,5 @@
 <template>
-  <div id="admin-container">
+  <div class="admin-container">
     <el-container>
       <el-header height="40px">
         <h1 class="h1 fl"><i class="el-icon-s-platform"></i>后台管理</h1>
@@ -57,6 +57,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.admin-container {
+  width: 100%;
+  height: 100%;
+  .el-container {
+    width: 100%;
+    height: 100%;
+  }
+}
 .el-header {
   background: #3c8dbc;
   color: #fff;

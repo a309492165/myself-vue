@@ -1,11 +1,11 @@
 <template>
-  <div class="catalog">
-    <add-title-model :text="'目录'" :isShowPop="catalog.add.show"></add-title-model>
-    <div class="catalog-list-content">
+  <div class="add-article">
+    <add-title-model :text="'文章'" :isShowPop="article.add.show"></add-title-model>
+    <div class="article-list-content">
       <p
-        :class="{ active: catalog.list.active == idx }"
+        :class="{ active: article.list.active == idx }"
         @click="handleChangeCatalog(idx)"
-        v-for="(item, idx) in catalog.list.content"
+        v-for="(item, idx) in article.list.content"
         :key="idx"
       >
         <span>{{ item.title }}</span>
@@ -40,21 +40,31 @@
 import AddTitleModel from './AddTitleModel'
 import DeletePop from '@/components/pop/DeletePop.vue'
 import EditOneInput from '@/components/pop/EditOneInput.vue'
-import { queryCatalogAll, addCatalog, deleteCatalog, updateCatalog } from '@/api/blog'
+import { queryArticle, addArticle, deleteArticle, updateArticle } from '@/api/blog'
 import util from '@/utils/util'
-import { mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 export default {
-  name: 'Catalog',
+  name: 'AddArticle',
   components: {
     AddTitleModel,
     DeletePop,
     EditOneInput
   },
+  computed: {
+    ...mapState({
+      catalogId: state => state.adminBlog.catalogId
+    })
+  },
+  watch: {
+    catalogId(val) {
+      this.queryAll()
+    }
+  },
   data() {
     return {
       userInfo: {},
       currentIdx: null,
-      catalog: {
+      article: {
         add: {
           show: true
         },
@@ -73,24 +83,19 @@ export default {
   mounted() {
     let userStr = util.encompile(sessionStorage.getItem('_mySelf'))
     this.userInfo = JSON.parse(userStr)
-    this.queryAll()
   },
   methods: {
-    ...mapMutations({
-      setCatalogId: 'adminBlog/setCatalogId'
-    }),
     queryAll () {
-      queryCatalogAll({ uid: this.userInfo.id }).then(data => {
-        this.catalog.list.content = data
-        this.setCatalogId(data[0].id)
+      queryArticle({ catalogId: this.catalogId }).then(data => {
+        this.article.list.content = data
       })
     },
     // 目录条功能集合
     handleAdd (text) {
-      addCatalog({ uid: this.userInfo.id, title: text }).then(
+      addArticle({ catalogId: this.catalogId, uid: this.userInfo.id, title: text }).then(
         data => {
           this.$tip.success(data)
-          this.catalog.add.show = false
+          this.article.add.show = false
           this.queryAll()
         }
       ).catch(e => {
@@ -98,11 +103,10 @@ export default {
       })
     },
     resetCatalogAddShow () {
-      this.catalog.add.show = true
+      this.article.add.show = true
     },
     handleChangeCatalog (idx) {
-      this.catalog.list.active = idx
-      this.setCatalogId(this.catalog.list.content[idx].id)
+      this.article.list.active = idx
     },
     // 删除
     openDelCatalog(i) {
@@ -113,8 +117,8 @@ export default {
       this.deleteDialogVisible = false
     },
     confirmDel() {
-      let id = this.catalog.list.content[this.currentIdx].id
-      deleteCatalog({ id }).then(data => {
+      let id = this.article.list.content[this.currentIdx].id
+      deleteArticle({ id }).then(data => {
         this.$tip.success(data)
         this.queryAll()
         this.deleteDialogVisible = false
@@ -132,12 +136,12 @@ export default {
       this.editDialogVisible = false
     },
     confirmEdit(content) {
-      let id = this.catalog.list.content[this.currentIdx].id
-      updateCatalog({ id, title: content }).then(data => {
+      let id = this.article.list.content[this.currentIdx].id
+      updateArticle({ id, title: content }).then(data => {
         this.$tip.success(data)
         this.queryAll()
         this.editDialogVisible = false
-        // this.catalog.list.content[this.currentIdx].title = content
+        // this.article.list.content[this.currentIdx].title = content
       }).catch(e => {
         // console.log(e)
       })
@@ -148,10 +152,10 @@ export default {
 
 <style lang="scss" scoped>
 // 目录
-.catalog {
+.add-article {
   overflow-x: hidden;
-  color: #fff;
-  .catalog-list-content {
+  color: #111;
+  .article-list-content {
     > p {
       margin-top: 10px;
       padding: 10px;

@@ -15,9 +15,9 @@ module.exports = {
       }
     }
     let obj = {
-      code: -1,
-      data: null,
-      msg: '请求失败',
+      code: 0,
+      data,
+      msg: '无数据',
     }
     if (isTrue) {
       obj = {
