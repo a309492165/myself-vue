@@ -180,7 +180,6 @@ class BlogService extends Service {
   async findArticleOne () {
     let { ctx, app } = this; 
     const { articleId } = ctx.request.body
-    console.log(articleId)
     if (articleId !== null) {
       const sql = `
           SELECT
