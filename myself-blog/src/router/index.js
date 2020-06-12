@@ -23,7 +23,8 @@ const router = new Router({
         { name: '/admin/msg', path: 'msg', component: () => import('@/views/admin/AdminMsg.vue') },
         { name: '/admin/user', path: 'user', component: () => import('@/views/admin/AdminUser.vue') }
       ]
-    }
+    },
+    { name: '/singleblog', path: '/singleblog', component: () => import('@/views/page/SingleBlog.vue') }
   ]
 })
 router.beforeEach((to, from, next) => {

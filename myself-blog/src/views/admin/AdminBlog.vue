@@ -2,19 +2,21 @@
   <div class="admin-blog-container">
     <catalog></catalog>
     <add-article></add-article>
-    <div>33</div>
+    <editor-box></editor-box>
   </div>
 </template>
 
 <script>
 import Catalog from '@/components/admin/blog/Catalog.vue'
 import AddArticle from '@/components/admin/blog/AddArticle.vue'
+import EditorBox from '@/components/admin/blog/EditorBox.vue'
 import EditBlog from '@/components/admin/blog/EditBlog.vue'
 export default {
   name: 'AdminBlog',
   components: {
     Catalog,
     AddArticle,
+    EditorBox,
     EditBlog
   },
   data() {

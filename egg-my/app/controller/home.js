@@ -36,6 +36,11 @@ class HomeController extends Controller {
     const data = await ctx.service.comment.addReply();
     ctx.body = data;
   }
+  async findLookAll() {
+    const { ctx } = this;
+    const data = await ctx.service.comment.findLookAll();
+    ctx.body = data;
+  }
 }
 
 module.exports = HomeController;

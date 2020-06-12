@@ -11,3 +11,11 @@ export function addComment(params) {
 export function addReply(params) {
   return request.post('/comment/reply/add', params)
 }
+// 看点
+export function findLookAll(params) {
+  return request.get('/findLookAll', params)
+}
+// 看点但文章
+export function findArticleOne(params) {
+  return request.post('/admin/blog/findArticleOne', params)
+}

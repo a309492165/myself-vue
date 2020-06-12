@@ -9,10 +9,10 @@
         </div>
         <div v-if="userinfo" class="login-col clearfix">
           <span>{{ userinfo.username }}</span>
-          <span v-if="userinfo.username == 'admin'" class="login-colspan-middle"
+          <span v-if="userinfo.username == 'admin' || userinfo.username == 'devil'" class="login-colspan-middle"
             >|</span
           >
-          <span v-if="userinfo.username == 'admin'" @click="jumpAdmin"
+          <span v-if="userinfo.username == 'admin' || userinfo.username == 'devil'" @click="jumpAdmin"
             >后台管理</span
           >
           <span class="login-colspan-middle">|</span>

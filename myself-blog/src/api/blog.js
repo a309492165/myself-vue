@@ -25,3 +25,10 @@ export function deleteArticle(params) {
 export function updateArticle(params) {
   return request.post('/admin/blog/updateArticle', params)
 }
+// 单文章主体增删改查
+export function queryArticleContent(params) {
+  return request.post('/admin/blog/queryArticleContent', params)
+}
+export function updateArticleContent(params) {
+  return request.post('/admin/blog/updateArticleContent', params)
+}

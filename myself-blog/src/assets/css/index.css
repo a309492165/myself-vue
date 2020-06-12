@@ -84,3 +84,23 @@ body {
 .mt-20 {
   margin-top: 20px;
 }
+
+.w-e-text {
+  overflow-y: auto !important;
+}
+
+.toolbar>div:first-child {
+  z-index: 10003 !important;
+}
+
+.w-e-text h1, .w-e-item h1 {
+  font-size: 2em;
+}
+
+.single-blog .w-e-toolbar {
+  display: none;
+}
+.single-blog .w-e-text-container {
+  height: 100% !important;
+  border: none !important;
+}

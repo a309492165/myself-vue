@@ -67,6 +67,15 @@ module.exports = appInfo => {
     renew: true, // 每次刷新页面，Session 都会被延期。
     domin: 'http://127.0.0.1',
   };
+  // 解除上传大小
+  config.bodyParser = {
+    jsonLimit: '300mb',
+    formLimit: '300mb',
+  };
+  // file 方式接受附件
+  // config.multipart = {
+  //   mode: 'file',
+  // };
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

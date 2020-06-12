@@ -4,6 +4,7 @@
 const Service = require('egg').Service;
 
 class CommentService extends Service {
+  // 留言
   async findAll() {
     const { ctx, app } = this
     const offsetp = ctx.query.offsetp || 1
@@ -87,6 +88,32 @@ class CommentService extends Service {
     `;
     const isIn = await app.mysql.query(sql, [content, commentId, uid, cid, nowDate])
     return app.lineJudgment(isIn.affectedRows, '回复成功', '回复失败')
+  }
+  // 看点
+  async findLookAll() {
+    const { ctx, app } = this
+    const offsetp = ctx.query.offsetp || 1
+    const limitp = ctx.query.limitp || 1
+    const sql = `
+      SELECT 
+        a.id AS id,
+        a.title, 
+        a.updatedAt,
+        u.username 
+      FROM blog_article a 
+        LEFT JOIN users u on u.id = a.user_id 
+      ORDER BY 
+        a.updatedAt DESC 
+      LIMIT ?, ?
+    `;
+    
+    const article = await app.mysql.query(sql, [ Number((offsetp-1)*limitp), Number(limitp)])
+    let res = app.formatData({dataList: article})
+    const total = await app.mysql.query(`SELECT count(id) FROM blog_article`)
+    if (total) {
+      res.data.total = total[0]['count(id)']
+    }
+    return res
   }
 }
 

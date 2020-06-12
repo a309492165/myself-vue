@@ -42,7 +42,7 @@ import DeletePop from '@/components/pop/DeletePop.vue'
 import EditOneInput from '@/components/pop/EditOneInput.vue'
 import { queryArticle, addArticle, deleteArticle, updateArticle } from '@/api/blog'
 import util from '@/utils/util'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'AddArticle',
   components: {
@@ -50,15 +50,16 @@ export default {
     DeletePop,
     EditOneInput
   },
+  watch: {
+    catalogId(val) {
+      this.article.list.active = 0
+      this.queryAll()
+    }
+  },
   computed: {
     ...mapState({
       catalogId: state => state.adminBlog.catalogId
     })
-  },
-  watch: {
-    catalogId(val) {
-      this.queryAll()
-    }
   },
   data() {
     return {
@@ -83,11 +84,22 @@ export default {
   mounted() {
     let userStr = util.encompile(sessionStorage.getItem('_mySelf'))
     this.userInfo = JSON.parse(userStr)
+    if (this.catalogId !== null) {
+      this.queryAll()
+    }
   },
   methods: {
+    ...mapMutations({
+      setArticleId: 'adminBlog/setArticleId'
+    }),
     queryAll () {
       queryArticle({ catalogId: this.catalogId }).then(data => {
         this.article.list.content = data
+        if (data.length > 0) {
+          this.setArticleId(data[0].id)
+        } else {
+          this.setArticleId(0)
+        }
       })
     },
     // 目录条功能集合
@@ -107,6 +119,7 @@ export default {
     },
     handleChangeCatalog (idx) {
       this.article.list.active = idx
+      this.setArticleId(this.article.list.content[idx].id)
     },
     // 删除
     openDelCatalog(i) {

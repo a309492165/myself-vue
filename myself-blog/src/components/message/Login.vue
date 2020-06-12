@@ -84,7 +84,7 @@ export default {
             this.dialogFormVisible = false
             this.form.mobile = ''
             this.form.password = ''
-            let str = JSON.stringify(data.userinfo)
+            let str = JSON.stringify(data)
             sessionStorage.setItem('_mySelf', util.compile(str))
           }).catch(e => {
             // console.log(e)

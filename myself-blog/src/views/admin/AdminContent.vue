@@ -62,7 +62,7 @@ export default {
   height: 100%;
   .el-container {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 20px);
   }
 }
 .el-header {

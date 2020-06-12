@@ -82,7 +82,9 @@ export default {
     queryAll () {
       queryCatalogAll({ uid: this.userInfo.id }).then(data => {
         this.catalog.list.content = data
-        this.setCatalogId(data[0].id)
+        if (data.length > 0) {
+          this.setCatalogId(data[0].id)
+        }
       })
     },
     // 目录条功能集合
