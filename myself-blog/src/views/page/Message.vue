@@ -61,6 +61,7 @@ export default {
       this.$axios.post('/out').then(data => {
         this.$tip.success(data)
         this.setUserinfo(null)
+        sessionStorage.setItem('_mySelf', null)
       })
     },
     handleComments() {

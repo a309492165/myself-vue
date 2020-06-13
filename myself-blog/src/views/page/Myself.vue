@@ -2,6 +2,35 @@
     <div class="myself-container">
       <main class="page" id="pdfDom">
         <section>
+          <h1 class="f-s-18 f-w-900 m-b-20">个人信息</h1>
+          <div class="boxs-content">
+            <img v-if="userInfo.username == 'devil'" src="@/assets/img/1.jpg" alt="" width="120px" height="170px">
+            <div class="boxes default m-b-20" :class="{boxsW: userInfo.username == 'devil'}">
+              <div class="box bg-gray-lightest p-t-0 p-b-0">
+                <div class="row">
+                  <div class="col-4 p-t-10 p-b-10">● 颜挺瑞 | 男 | 1994</div>
+                  <div class="col-4 p-t-10 p-b-10 border">● 前端开发 | 3 年工作经验</div>
+                  <div class="col-1 p-t-10 p-b-10 border">● 大专 | 哈尔滨铁道职业技术学院 | 工程系</div>
+                </div>
+                <div class="row">
+                  <div class="col-4 p-t-10 p-b-10">● 期望职位：Web高级前端</div>
+                  <div class="col-4 p-t-10 p-b-10 border">● 期望城市：杭州</div>
+                </div>
+              </div>
+              <div class="box bg-gray-lightest">● Github：
+                <a href="https://github.com/a309492165" target="_blank">https://github.com/a309492165</a>
+              </div>
+              <!-- <div class="box bg-gray-lightest">● Gitee：
+                <a href="https://gitee.com/redspite" target="_blank">https://gitee.com/redspite
+                </a>
+              </div> -->
+              <div class="box bg-gray-lightest">● 技术博客：
+                <a href="http://121.196.56.243:8080" target="_blank">http://121.196.56.243:8080</a>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
           <h1 class="f-s-18 f-w-900 m-b-20">联系方式</h1>
           <div class="boxes default m-b-20">
             <div class="box bg-gray-lightest p-t-0 p-b-0">
@@ -10,32 +39,6 @@
                 <div class="col-4 p-t-10 p-b-10 border">● Email：309492165@qq.com</div>
                 <div class="col-1 p-t-10 p-b-10 border">● 个人网站：http://121.196.56.243:8080（一期）</div>
               </div>
-            </div>
-          </div>
-        </section>
-        <section>
-          <h1 class="f-s-18 f-w-900 m-b-20">个人信息</h1>
-          <div class="boxes default m-b-20">
-            <div class="box bg-gray-lightest p-t-0 p-b-0">
-              <div class="row">
-                <div class="col-4 p-t-10 p-b-10">● 颜挺瑞 | 男 | 1994</div>
-                <div class="col-4 p-t-10 p-b-10 border">● 前端开发 | 3 年工作经验</div>
-                <div class="col-1 p-t-10 p-b-10 border">● 大专 | 哈尔滨铁道职业技术学院 | 工程系</div>
-              </div>
-              <div class="row">
-                <div class="col-4 p-t-10 p-b-10">● 期望职位：Web高级前端</div>
-                <div class="col-4 p-t-10 p-b-10 border">● 期望城市：杭州</div>
-              </div>
-            </div>
-            <div class="box bg-gray-lightest">● Github：
-              <a href="https://github.com/a309492165" target="_blank">https://github.com/a309492165</a>
-            </div>
-            <!-- <div class="box bg-gray-lightest">● Gitee：
-              <a href="https://gitee.com/redspite" target="_blank">https://gitee.com/redspite
-              </a>
-            </div> -->
-            <div class="box bg-gray-lightest">● 技术博客：
-              <a href="http://121.196.56.243:8080" target="_blank">http://121.196.56.243:8080</a>
             </div>
           </div>
         </section>
@@ -60,7 +63,7 @@
         <section>
           <h1 class="f-s-18 f-w-900 m-b-20">工作经历</h1>
           <div class="boxes default m-b-20">
-            <div class="box bg-gray-lightest">● 杭州皓易科技有限公司 （ 2018 年 01 月 ~ 至今 ）</div>
+            <div class="box bg-gray-lightest">● 杭州皓易科技有限公司 （ 2019 年 01 月 ~ 至今 ）</div>
             <div class="box bg-gray-lightest">
               <p class="m-t-0"><b>主导能源局上报系统、协作O-Wind2.0改造</b></p>
               <p>- 前端技术选型、架构设计</p>
@@ -81,7 +84,7 @@
             </div>
           </div>
           <div class="boxes default m-b-20">
-            <div class="box bg-gray-lightest">● 杭州格爱科技有限公司 （ 2017 年 3 月 ~ 2017 年 12 月 ）</div>
+            <div class="box bg-gray-lightest">● 杭州格爱科技有限公司 （ 2018 年 3 月 ~ 2018 年 12 月 ）</div>
             <div class="box bg-gray-lightest">
               <p class="m-t-0"><b>官网页面更新与维护</b> </p>
               <p> - JQ + CSS3 + Bootstrap + Html5</p>
@@ -96,8 +99,21 @@
 </template>
 
 <script>
+import util from '@/utils/util'
 export default {
-  name: 'Myself'
+  name: 'Myself',
+  data() {
+    return {
+      userInfo: {}
+    }
+  },
+  mounted () {
+    let myself = sessionStorage.getItem('_mySelf')
+    if (myself !== 'null') {
+      let userStr = util.encompile(myself)
+      this.userInfo = JSON.parse(userStr)
+    }
+  }
 }
 </script>
 
@@ -164,6 +180,10 @@ export default {
   border: 2px solid transparent;
   border-radius: 5px;
   margin-bottom: 15px;
+  width: 100%;
+}
+.page .boxesW {
+  width: calc(100% - 120px);
 }
 .page .boxes p {
   margin-top: 10px;
@@ -231,6 +251,9 @@ export default {
 }
 .page .bg-gray-lightest {
   background-color: #f5f5f5;
+}
+.boxs-content {
+  display: flex;
 }
 @media (min-width: 576px) {
   .page .col-4 {
