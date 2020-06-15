@@ -109,7 +109,7 @@ export default {
   },
   mounted () {
     let myself = sessionStorage.getItem('_mySelf')
-    if (myself !== 'null') {
+    if (myself !== 'null' && myself !== undefined && myself !== null) {
       let userStr = util.encompile(myself)
       this.userInfo = JSON.parse(userStr)
     }
