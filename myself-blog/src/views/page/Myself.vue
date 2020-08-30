@@ -25,7 +25,7 @@
                 </a>
               </div> -->
               <div class="box bg-gray-lightest">● 技术博客：
-                <a href="http://121.196.56.243:8080" target="_blank">http://121.196.56.243:8080</a>
+                <a href="http://www.timelysnow.cn/#/" target="_blank">http://www.timelysnow.cn/#/</a>
               </div>
             </div>
           </div>
@@ -37,7 +37,8 @@
               <div class="row">
                 <div class="col-4 p-t-10 p-b-10">● 手机：13071858818</div>
                 <div class="col-4 p-t-10 p-b-10 border">● Email：309492165@qq.com</div>
-                <div class="col-1 p-t-10 p-b-10 border">● 个人网站：http://121.196.56.243:8080（一期）</div>
+                <div class="col-1 p-t-10 p-b-10 border">● 个人网站：http://www.timelysnow.cn/#/（一期）</div>
+                <div class="col-1 p-t-10 p-b-10 border">● 地球网站：<a href="http://globe.timelysnow.cn" target="_blank">http://globe.timelysnow.cn</a></div>
               </div>
             </div>
           </div>
