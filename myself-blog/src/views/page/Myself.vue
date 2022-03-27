@@ -9,7 +9,7 @@
               <div class="box bg-gray-lightest p-t-0 p-b-0">
                 <div class="row">
                   <div class="col-4 p-t-10 p-b-10">● 颜挺瑞 | 男 | 1994</div>
-                  <div class="col-4 p-t-10 p-b-10 border">● 前端开发 | 3 年工作经验</div>
+                  <div class="col-4 p-t-10 p-b-10 border">● 前端开发 | 4 年工作经验</div>
                   <div class="col-1 p-t-10 p-b-10 border">● 大专 | 哈尔滨铁道职业技术学院 | 工程系</div>
                 </div>
                 <div class="row">
@@ -20,13 +20,13 @@
               <div class="box bg-gray-lightest">● Github：
                 <a href="https://github.com/a309492165" target="_blank">https://github.com/a309492165</a>
               </div>
-              <!-- <div class="box bg-gray-lightest">● Gitee：
-                <a href="https://gitee.com/redspite" target="_blank">https://gitee.com/redspite
+              <div class="box bg-gray-lightest">● Gitee：
+                <a href="https://gitee.com/timelysnow" target="_blank">https://gitee.com/timelysnow
                 </a>
-              </div> -->
-              <div class="box bg-gray-lightest">● 技术博客：
-                <a href="http://www.timelysnow.cn/#/" target="_blank">http://www.timelysnow.cn/#/</a>
               </div>
+              <!-- <div class="box bg-gray-lightest">● 技术博客：
+                <a href="http://www.timelysnow.cn/#/" target="_blank">http://www.timelysnow.cn/#/</a>
+              </div> -->
             </div>
           </div>
         </section>
@@ -37,7 +37,7 @@
               <div class="row">
                 <div class="col-4 p-t-10 p-b-10">● 手机：13071858818</div>
                 <div class="col-4 p-t-10 p-b-10 border">● Email：309492165@qq.com</div>
-                <div class="col-1 p-t-10 p-b-10 border">● 个人网站：http://www.timelysnow.cn/#/（一期）</div>
+                <div class="col-1 p-t-10 p-b-10 border">● 组件网站：<a href="https://timelysnow.gitee.io/rl-docs-v2/" target="_blank">https://timelysnow.gitee.io/rl-docs-v2/</a></div>
                 <div class="col-1 p-t-10 p-b-10 border">● 地球网站：<a href="http://globe.timelysnow.cn" target="_blank">http://globe.timelysnow.cn</a></div>
               </div>
             </div>
@@ -64,7 +64,17 @@
         <section>
           <h1 class="f-s-18 f-w-900 m-b-20">工作经历</h1>
           <div class="boxes default m-b-20">
-            <div class="box bg-gray-lightest">● 杭州皓易科技有限公司 （ 2019 年 01 月 ~ 至今 ）</div>
+            <div class="box bg-gray-lightest">● 浙江图讯科技股份有限公司 （ 2020 年 08 月 ~ 至今 ）</div>
+            <div class="box bg-gray-lightest">
+              <p class="m-t-0"><b>公司内部Vue组件库开发 、 国家应急部粉尘系统等等业务系统</b> </p>
+              <p>- 和前端组长完成组件库开发，完成其中一半部分开发和维护升级。Docsify编写使用组件库文档和脚手架使用命令</p>
+              <p>- 公司所有的大屏展示项目，全参与一比一还原ui图效果，达到客户预期，在数字化改革中得到国家应急部和浙江省的一致认可</p>
+              <p>- 解决问题：从0开始搭建一套属于公司自己使用的组件库，让项目前后端分离，开发更加快速的开发和项目上线</p>
+              <p>- 涉及功能：Vue全家桶，复杂样式ui调整</p>
+            </div>
+          </div>
+          <div class="boxes default m-b-20">
+            <div class="box bg-gray-lightest">● 杭州皓易科技有限公司 （ 2019 年 01 月 ~ 2020 年 07 月 ）</div>
             <div class="box bg-gray-lightest">
               <p class="m-t-0"><b>主导能源局上报系统、协作O-Wind2.0改造</b></p>
               <p>- 前端技术选型、架构设计</p>
@@ -85,7 +95,7 @@
             </div>
           </div>
           <div class="boxes default m-b-20">
-            <div class="box bg-gray-lightest">● 杭州格爱科技有限公司 （ 2018 年 3 月 ~ 2018 年 12 月 ）</div>
+            <div class="box bg-gray-lightest">● 杭州格爱科技有限公司 （ 2018 年 4 月 ~ 2018 年 12 月 ）</div>
             <div class="box bg-gray-lightest">
               <p class="m-t-0"><b>官网页面更新与维护</b> </p>
               <p> - JQ + CSS3 + Bootstrap + Html5</p>

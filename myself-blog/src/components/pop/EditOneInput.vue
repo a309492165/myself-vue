@@ -47,7 +47,7 @@ export default {
 
 <style lang="scss" scoped>
 // 弹窗
-/deep/ .el-dialog__wrapper {
+::v-deep .el-dialog__wrapper {
   .el-dialog {
     background-size: 100% 100%;
     .el-dialog__title,

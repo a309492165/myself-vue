@@ -50,7 +50,8 @@ export default {
       })
     },
     change (val) {
-      this.content = val
+      console.log(this.content)
+      // this.content = val
       this.isClear = false
       this.isChange = true
     },
